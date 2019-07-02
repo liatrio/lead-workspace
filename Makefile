@@ -10,6 +10,7 @@ setup: .resize microk8s helm skaffold gitconfig ssh
 microk8s:
 	sudo snap install kubectl --classic
 	sudo snap install microk8s --classic
+	microk8s.status --wait-ready
 	microk8s.enable registry
 	microk8s.config > $(HOME)/.kube/config 
 	
