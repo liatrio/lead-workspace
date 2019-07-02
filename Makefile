@@ -1,7 +1,7 @@
 SKAFFOLD_VERSION=0.32.0
 CST_VERSION=1.8.0
 
-setup: .resize microk8s helm skaffold
+setup: .resize microk8s helm skaffold gitconfig ssh
 
 .resize: 
 	sh resize-volume.sh
@@ -31,6 +31,15 @@ skaffold:
 ssh:
 	@test -f ~/.ssh/id_rsa.pub || ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -q
 	
+	@echo ""
 	@echo "Register a new SSH key with GitHub by navigating to https://github.com/settings/ssh/new and pasting in:"
 	@echo ""
 	@cat ~/.ssh/id_rsa.pub
+	@echo ""
+
+gitconfig:
+	@echo ""
+	@echo "Setting up Git"
+	@read -p "  What is your name? " name && git config --global user.name "$${name}"
+	@read -p "  What is your email? " email && git config --global user.email "$${email}"
+	@echo ""
