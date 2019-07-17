@@ -16,8 +16,7 @@ microk8s:
 	microk8s.status --wait-ready
 	microk8s.enable registry
 	microk8s.enable dns
-	microk8s.config > $(HOME)/.kube/config
-	sudo cp microk8s.sh /etc/profile.d/
+	microk8s.config -l > $(HOME)/.kube/config
 	sudo iptables -P FORWARD ACCEPT
 
 helm:
