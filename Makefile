@@ -58,6 +58,6 @@ ssh:
 gitconfig:
 	@echo ""
 	@echo "Setting up Git"
-	@read -p "  What is your full name? " name && git config --global user.name "$${name}"
+	@read -p "  What is your GitHub username? " name && git config --global user.name "$${name}"
 	@read -p "  What is your email address? " email && git config --global user.email "$${email}"
 	@echo ""
