@@ -18,6 +18,17 @@ microk8s:
 	microk8s.enable dns
 	microk8s.config -l > $(HOME)/.kube/config
 	sudo iptables -P FORWARD ACCEPT
+	
+reset:
+	microk8s.disable registry || echo "ok"
+	microk8s.disable dns || echo "ok"
+	microk8s.reset
+	microk8s.stop
+	microk8s.start
+	microk8s.status --wait-ready
+	microk8s.enable registry
+	microk8s.enable dns
+	helm init
 
 helm:
 	sudo snap install helm --classic
