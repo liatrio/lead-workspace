@@ -22,6 +22,7 @@ microk8s:
 helm:
 	sudo snap install helm --classic
 	helm init
+	cp -a helm-starters/* $(HOME)/.helm/starters/
 
 skaffold:
 	@curl -fsLo skaffold https://github.com/GoogleCloudPlatform/skaffold/releases/download/v${SKAFFOLD_VERSION}/skaffold-linux-amd64 && \
