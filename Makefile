@@ -1,12 +1,15 @@
-SKAFFOLD_VERSION=0.32.0
+SKAFFOLD_VERSION=0.33.0
 CST_VERSION=1.8.0
 
-setup: .resize microk8s helm skaffold gitconfig ssh
+setup: .resize umask microk8s helm skaffold gitconfig ssh
 
 .resize:
 	sh resize-volume.sh
 	touch .resize
-
+	
+umask:
+	sudo cp umask.sh /etc/profile.d/
+	
 microk8s:
 	sudo snap install kubectl --classic
 	sudo snap install microk8s --classic
@@ -43,6 +46,6 @@ ssh:
 gitconfig:
 	@echo ""
 	@echo "Setting up Git"
-	@read -p "  What is your name? " name && git config --global user.name "$${name}"
-	@read -p "  What is your email? " email && git config --global user.email "$${email}"
+	@read -p "  What is your full name? " name && git config --global user.name "$${name}"
+	@read -p "  What is your email address? " email && git config --global user.email "$${email}"
 	@echo ""
