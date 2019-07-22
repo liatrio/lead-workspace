@@ -9,7 +9,6 @@ setup: .resize iptables profile microk8s helm skaffold gitconfig ssh c9
 
 c9:
 	@cp c9-project.settings ~/environment/.c9/project.settings
-	#@echo "*** RELOAD YOUR BROWSER FOR CHANGES TO TAKE EFFECT ***"	
 	
 profile:
 	sudo cp profile.sh /etc/profile.d/lead-workspace.sh
