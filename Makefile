@@ -1,14 +1,15 @@
 SKAFFOLD_VERSION=0.33.0
 CST_VERSION=1.8.0
 
-setup: .resize umask microk8s helm skaffold gitconfig ssh
+setup: .resize .profile microk8s helm skaffold gitconfig ssh
 
 .resize:
 	sh resize-volume.sh
 	touch .resize
-	
-umask:
-	sudo cp umask.sh /etc/profile.d/
+
+.profile:
+	grep -qxF 'sudo iptables -P FORWARD ACCEPT' ~/.profile || echo 'sudo iptables -P FORWARD ACCEPT' >> ~/.profile
+	grep -qxF 'umask 022' ~/.profile || echo 'umask 022' >> ~/.profile
 	
 microk8s:
 	sudo snap install kubectl --classic
