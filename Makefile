@@ -1,20 +1,19 @@
 SKAFFOLD_VERSION=0.33.0
 CST_VERSION=1.8.0
 
-setup: .resize umask microk8s iptableshelm skaffold gitconfig ssh
+setup: .resize profile microk8s helm skaffold gitconfig ssh c9
 
 .resize:
 	sh resize-volume.sh
 	touch .resize
 
 c9:
-	cp c9-project.settings ~/environment/.c9/project.settings
+	@cp c9-project.settings ~/environment/.c9/project.settings
+	@echo "*** RELOAD YOUR BROWSER FOR CHANGES TO TAKE EFFECT ***"	
 	
 profile:
 	sudo cp profile.sh /etc/profile.d/lead-workspace.sh
 	
-umask:
-	sudo cp umask.sh /etc/profile.d/
 	
 microk8s:
 	sudo snap install kubectl --classic

@@ -1,0 +1,35 @@
+{
+    "build": {
+        "@saveall": true
+    },
+    "instance": {
+        "@automaticShutdown": "30"
+    },
+    "language": {
+        "tern_defs": {
+            "json()": {
+                "browser": {
+                    "enabled": true
+                },
+                "ecma5": {
+                    "enabled": true
+                },
+                "jQuery": {
+                    "enabled": true
+                }
+            }
+        }
+    },
+    "preview": {
+        "@url": "$C9_HOSTNAME:8081/spring-nanotrader-web/"
+    },
+    "run": {
+        "configs": {
+            "@inited": true,
+            "json()": {}
+        }
+    },
+    "welcome": {
+        "@first": true
+    }
+}
