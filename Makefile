@@ -1,11 +1,17 @@
 SKAFFOLD_VERSION=0.33.0
 CST_VERSION=1.8.0
 
-setup: .resize umask microk8s helm skaffold gitconfig ssh
+setup: .resize umask microk8s iptableshelm skaffold gitconfig ssh
 
 .resize:
 	sh resize-volume.sh
 	touch .resize
+
+c9:
+	cp c9-project.settings ~/environment/.c9/project.settings
+	
+profile:
+	sudo cp profile.sh /etc/profile.d/lead-workspace.sh
 	
 umask:
 	sudo cp umask.sh /etc/profile.d/
@@ -17,7 +23,12 @@ microk8s:
 	microk8s.enable registry
 	microk8s.enable dns
 	microk8s.config -l > $(HOME)/.kube/config
+	
+iptables:
 	sudo iptables -P FORWARD ACCEPT
+	sudo cp docker.service /lib/systemd/system/docker.service
+	sudo systemctl daemon-reload
+	sudo systemctl restart docker
 	
 reset:
 	microk8s.disable registry || echo "ok"
