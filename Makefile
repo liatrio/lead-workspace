@@ -1,7 +1,7 @@
 SKAFFOLD_VERSION=0.33.0
 CST_VERSION=1.8.0
 
-setup: .resize profile microk8s helm skaffold gitconfig ssh c9
+setup: .resize iptables profile microk8s helm skaffold gitconfig ssh c9
 
 .resize:
 	sh resize-volume.sh
@@ -9,7 +9,7 @@ setup: .resize profile microk8s helm skaffold gitconfig ssh c9
 
 c9:
 	@cp c9-project.settings ~/environment/.c9/project.settings
-	@echo "*** RELOAD YOUR BROWSER FOR CHANGES TO TAKE EFFECT ***"	
+	#@echo "*** RELOAD YOUR BROWSER FOR CHANGES TO TAKE EFFECT ***"	
 	
 profile:
 	sudo cp profile.sh /etc/profile.d/lead-workspace.sh
@@ -25,9 +25,6 @@ microk8s:
 	
 iptables:
 	sudo iptables -P FORWARD ACCEPT
-	sudo cp docker.service /lib/systemd/system/docker.service
-	sudo systemctl daemon-reload
-	sudo systemctl restart docker
 	
 reset:
 	microk8s.disable registry || echo "ok"
