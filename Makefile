@@ -11,7 +11,8 @@ c9:
 	@cp c9-project.settings ~/environment/.c9/project.settings
 	
 profile:
-	sudo cp profile.sh /etc/profile.d/lead-workspace.sh
+	@-which rvm && rvm implode --force
+	@sudo cp profile.sh /etc/profile.d/lead-workspace.sh
 	
 	
 microk8s:
