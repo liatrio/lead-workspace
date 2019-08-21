@@ -63,6 +63,7 @@ ssh:
 	@echo ""
 
 gitconfig:
+	@sudo snap install hub --classic
 	@echo ""
 	@echo "Setting up Git"
 	@read -p "  What is your full name? " name && git config --global user.name "$${name}"
