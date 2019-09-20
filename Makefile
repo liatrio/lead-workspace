@@ -1,7 +1,11 @@
 SKAFFOLD_VERSION=0.33.0
 CST_VERSION=1.8.0
 
-setup: .resize iptables profile microk8s helm skaffold gitconfig ssh c9
+all: setup k8s install
+
+setup: .resize iptables profile
+k8s: microk8s
+install: helm skaffold gitconfig ssh c9
 
 .resize:
 	sh resize-volume.sh
@@ -18,10 +22,12 @@ profile:
 microk8s:
 	sudo snap install kubectl --classic
 	sudo snap install microk8s --classic
+	sudo usermod -a -G microk8s ubuntu
 	microk8s.status --wait-ready
 	microk8s.enable registry
 	microk8s.enable dns
-	microk8s.config -l > $(HOME)/.kube/config
+	microk8s.config -l > ~ubuntu/.kube/config
+	chown -R ubuntu:ubuntu ~ubuntu/.kube
 	
 iptables:
 	sudo iptables -P FORWARD ACCEPT
@@ -69,3 +75,5 @@ gitconfig:
 	@read -p "  What is your full name? " name && git config --global user.name "$${name}"
 	@read -p "  What is your email address? " email && git config --global user.email "$${email}"
 	@echo ""
+
+.PHONY: setup
