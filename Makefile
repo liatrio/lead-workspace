@@ -20,8 +20,8 @@ profile:
 	
 	
 microk8s:
-	sudo snap install kubectl --classic
-	sudo snap install microk8s --classic
+	sudo snap install kubectl --classic --channel=1.15/stable
+	sudo snap install microk8s --classic --channel=1.15/stableG
 	sudo usermod -a -G microk8s ubuntu
 	microk8s.status --wait-ready
 	microk8s.enable registry
@@ -80,6 +80,6 @@ ngrok:
 	@sudo snap install ngrok
 
 yo:
-	@sudo npm install -g yo generator-botkit
+	@sudo -s export PATH=/home/ubuntu/.nvm/versions/node/v10.16.2/bin/npm:$PATH && npm install -g yo generator-botkit
 
 .PHONY: setup
