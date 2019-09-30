@@ -1,5 +1,6 @@
 SKAFFOLD_VERSION=0.33.0
 CST_VERSION=1.8.0
+K8S_VERSION=1.15/stable
 
 all: setup k8s install
 
@@ -20,8 +21,8 @@ profile:
 	
 	
 microk8s:
-	sudo snap install kubectl --classic
-	sudo snap install microk8s --classic
+	sudo snap install kubectl --classic --channel=${K8S_VERSION}
+	sudo snap install microk8s --classic --channel=${K8S_VERSION}
 	sudo usermod -a -G microk8s ubuntu
 	microk8s.status --wait-ready
 	microk8s.enable registry
