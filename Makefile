@@ -5,7 +5,7 @@ all: setup k8s install
 
 setup: .resize iptables profile
 k8s: microk8s
-install: helm skaffold gitconfig ssh c9
+install: helm skaffold gitconfig ssh c9 ngrok
 
 .resize:
 	sh resize-volume.sh
@@ -75,5 +75,8 @@ gitconfig:
 	@read -p "  What is your full name? " name && git config --global user.name "$${name}"
 	@read -p "  What is your email address? " email && git config --global user.email "$${email}"
 	@echo ""
+
+ngrok:
+  @sudo snap install ngrok
 
 .PHONY: setup
