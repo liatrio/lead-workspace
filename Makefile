@@ -77,6 +77,6 @@ gitconfig:
 	@echo ""
 
 ngrok:
-  @sudo snap install ngrok
+	@sudo snap install ngrok
 
 .PHONY: setup
