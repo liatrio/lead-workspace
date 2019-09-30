@@ -5,7 +5,7 @@ all: setup k8s install
 
 setup: .resize iptables profile
 k8s: microk8s
-install: helm skaffold gitconfig ssh c9 ngrok
+install: helm skaffold gitconfig ssh c9 ngrok yo
 
 .resize:
 	sh resize-volume.sh
@@ -78,5 +78,8 @@ gitconfig:
 
 ngrok:
 	@sudo snap install ngrok
+
+yo:
+	@sudo npm install -g yo generator-botkit
 
 .PHONY: setup
