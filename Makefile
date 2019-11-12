@@ -45,6 +45,7 @@ reset:
 	helm init
 
 helm:
+	sudo microk8s.status --wait-ready
 	sudo snap install helm --classic
 	helm init
 	cp -a helm-starters/* $(HOME)/.helm/starters/
