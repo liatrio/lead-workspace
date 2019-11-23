@@ -19,7 +19,6 @@ profile:
 	@-which rvm && rvm implode --force
 	@sudo cp profile.sh /etc/profile.d/lead-workspace.sh
 	
-	
 microk8s:
 	sudo snap install kubectl --classic --channel=${K8S_VERSION}
 	sudo snap install microk8s --classic --channel=${K8S_VERSION}
@@ -29,6 +28,7 @@ microk8s:
 	microk8s.enable dns
 	microk8s.config -l > ~ubuntu/.kube/config
 	chown -R ubuntu:ubuntu ~ubuntu/.kube
+	echo "alias k=kubectl" >> /home/ubuntu/.bashrc
 	
 iptables:
 	sudo iptables -P FORWARD ACCEPT
