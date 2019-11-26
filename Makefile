@@ -26,11 +26,10 @@ microk8s:
 	sudo apt-get update
 	sudo apt-get install -y kubectl
 	sudo snap install microk8s --classic --channel=${K8S_VERSION}
-	sudo usermod -a -G microk8s ubuntu
-	microk8s.status --wait-ready
-	microk8s.enable registry
-	microk8s.enable dns
-	microk8s.config -l > ~ubuntu/.kube/config
+	sudo microk8s.status --wait-ready --timeout 300
+	sudo microk8s.enable registry
+	sudo microk8s.enable dns
+	sudo microk8s.config -l > ~ubuntu/.kube/config
 	chown -R ubuntu:ubuntu ~ubuntu/.kube
 	echo "alias k=kubectl" >> /home/ubuntu/.bashrc
 	
@@ -38,21 +37,21 @@ iptables:
 	sudo iptables -P FORWARD ACCEPT
 	
 reset:
-	microk8s.disable registry || echo "ok"
-	microk8s.disable dns || echo "ok"
-	microk8s.reset
-	microk8s.stop
-	microk8s.start
-	microk8s.status --wait-ready
-	microk8s.enable registry
-	microk8s.enable dns
+	sudo microk8s.disable registry || echo "ok"
+	sudo microk8s.disable dns || echo "ok"
+	sudo microk8s.reset
+	sudo microk8s.stop
+	sudo microk8s.start
+	sudo microk8s.status --wait-ready --timeout 300
+	sudo microk8s.enable registry
+	sudo microk8s.enable dns
 	helm init
 
 helm:
-	sudo microk8s.status --wait-ready
 	curl https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz
 	tar -zxvf helm-v2.16.1-linux-amd64.tgz
 	sudo mv linux-amd64/helm /usr/bin/helm
+	sudo microk8s.status --wait-ready --timeout 300
 	helm init
 	cp -a helm-starters/* $(HOME)/.helm/starters/
 
