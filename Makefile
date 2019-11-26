@@ -20,7 +20,11 @@ profile:
 	@sudo cp profile.sh /etc/profile.d/lead-workspace.sh
 	
 microk8s:
-	sudo snap install kubectl --classic --channel=${K8S_VERSION}
+	sudo apt-get update && sudo apt-get install -y apt-transport-https
+	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+	echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+	sudo apt-get update
+	sudo apt-get install -y kubectl
 	sudo snap install microk8s --classic --channel=${K8S_VERSION}
 	sudo usermod -a -G microk8s ubuntu
 	microk8s.status --wait-ready
@@ -46,7 +50,9 @@ reset:
 
 helm:
 	sudo microk8s.status --wait-ready
-	sudo snap install helm --classic --channel=2.16/stable
+	curl https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz
+	tar -zxvf helm-v2.16.1-linux-amd64.tgz
+	sudo mv linux-amd64/helm /usr/bin/helm
 	helm init
 	cp -a helm-starters/* $(HOME)/.helm/starters/
 
@@ -71,7 +77,9 @@ ssh:
 	@echo ""
 
 gitconfig:
-	@sudo snap install hub --classic
+	@curl -s https://github.com/github/hub/releases/download/v2.13.0/hub-linux-amd64-2.13.0.tgz --output hub-linux-amd64-2.13.0.tgz
+	@tar -zxvf hub-linux-amd64-2.13.0.tgz
+	@sudo mv hub-linux-amd64-2.13.0/bin/hub /usr/bin/hub
 	@echo ""
 	@echo "Setting up Git"
 	@read -p "  What is your full name? " name && git config --global user.name "$${name}"
