@@ -29,8 +29,8 @@ microk8s:
 	sudo microk8s.status --wait-ready --timeout 300
 	sudo microk8s.enable registry
 	sudo microk8s.enable dns
-	sudo microk8s.config -l > ~ubuntu/.kube/config
 	chown -R ubuntu:ubuntu ~ubuntu/.kube
+	sudo microk8s.config -l > ~ubuntu/.kube/config
 	echo "alias k=kubectl" >> /home/ubuntu/.bashrc
 	
 iptables:
