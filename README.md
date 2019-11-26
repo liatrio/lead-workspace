@@ -21,5 +21,5 @@ In the terminal, run:
 
 ```
     git clone https://github.com/liatrio/lead-workspace.git
-    make -C lead-workspace
+    lead-workspace/setup.sh
 ```
