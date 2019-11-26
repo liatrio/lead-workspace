@@ -48,7 +48,7 @@ reset:
 	helm init
 
 helm:
-	curl https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz
+	curl https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz --output helm-v2.16.1-linux-amd64.tgz
 	tar -zxvf helm-v2.16.1-linux-amd64.tgz
 	sudo mv linux-amd64/helm /usr/bin/helm
 	sudo microk8s.status --wait-ready --timeout 300
@@ -76,7 +76,7 @@ ssh:
 	@echo ""
 
 gitconfig:
-	@curl -s https://github.com/github/hub/releases/download/v2.13.0/hub-linux-amd64-2.13.0.tgz --output hub-linux-amd64-2.13.0.tgz
+	@wget https://github.com/github/hub/releases/download/v2.13.0/hub-linux-amd64-2.13.0.tgz
 	@tar -zxvf hub-linux-amd64-2.13.0.tgz
 	@sudo mv hub-linux-amd64-2.13.0/bin/hub /usr/bin/hub
 	@echo ""
