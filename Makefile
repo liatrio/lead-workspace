@@ -47,7 +47,7 @@ reset:
 
 helm:
 	curl -LO https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz
-	tar -zxvf helm-v2.16.1-linux-amd64.tgz
+	tar -zxvf helm-v2.16.1-linux-amd64.tar.gz
 	sudo mv linux-amd64/helm /usr/bin/helm
 	sudo microk8s.status --wait-ready --timeout 300
 	helm init
