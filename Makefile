@@ -20,11 +20,9 @@ profile:
 	@sudo cp profile.sh /etc/profile.d/lead-workspace.sh
 	
 microk8s:
-	sudo apt-get update && sudo apt-get install -y apt-transport-https
-	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-	echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-	sudo apt-get update
-	sudo apt-get install -y kubectl
+	curl -LO https://storage.googleapis.com/kubernetes-release/release/v${K8S_VERSION}/bin/linux/amd64/kubectl
+	chmod +x kubectl
+	sudo mv ./kubectl /usr/bin/kubectl
 	sudo snap install microk8s --classic --channel=${K8S_VERSION}
 	sudo microk8s.status --wait-ready --timeout 300
 	sudo microk8s.enable registry
@@ -48,7 +46,7 @@ reset:
 	helm init
 
 helm:
-	curl https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz --output helm-v2.16.1-linux-amd64.tgz
+	curl -LO https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz
 	tar -zxvf helm-v2.16.1-linux-amd64.tgz
 	sudo mv linux-amd64/helm /usr/bin/helm
 	sudo microk8s.status --wait-ready --timeout 300
@@ -76,7 +74,7 @@ ssh:
 	@echo ""
 
 gitconfig:
-	@wget https://github.com/github/hub/releases/download/v2.13.0/hub-linux-amd64-2.13.0.tgz
+	@curl -LO https://github.com/github/hub/releases/download/v2.13.0/hub-linux-amd64-2.13.0.tgz
 	@tar -zxvf hub-linux-amd64-2.13.0.tgz
 	@sudo mv hub-linux-amd64-2.13.0/bin/hub /usr/bin/hub
 	@echo ""
