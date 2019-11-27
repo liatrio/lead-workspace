@@ -20,7 +20,7 @@ profile:
 	@sudo cp profile.sh /etc/profile.d/lead-workspace.sh
 	
 microk8s:
-	curl -LO https://storage.googleapis.com/kubernetes-release/release/v${K8S_VERSION}/bin/linux/amd64/kubectl
+	curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl
 	chmod +x kubectl
 	sudo mv ./kubectl /usr/bin/kubectl
 	sudo snap install microk8s --classic --channel=${K8S_VERSION}
