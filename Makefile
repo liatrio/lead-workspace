@@ -20,7 +20,9 @@ profile:
 	@sudo cp profile.sh /etc/profile.d/lead-workspace.sh
 	
 microk8s:
-	sudo snap install kubectl --classic --channel=${K8S_VERSION}
+	curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl
+	chmod +x kubectl
+	sudo mv ./kubectl /usr/bin/kubectl
 	sudo snap install microk8s --classic --channel=${K8S_VERSION}
 	sudo microk8s.status --wait-ready --timeout 300
 	sudo microk8s.enable registry
@@ -44,7 +46,9 @@ reset:
 	helm init
 
 helm:
-	sudo snap install helm --classic --channel=2.16/stable
+	curl -LO https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz
+	tar -zxvf helm-v2.16.1-linux-amd64.tar.gz
+	sudo mv linux-amd64/helm /usr/bin/helm
 	sudo microk8s.status --wait-ready --timeout 300
 	helm init
 	cp -a helm-starters/* $(HOME)/.helm/starters/
@@ -70,7 +74,9 @@ ssh:
 	@echo ""
 
 gitconfig:
-	@sudo snap install hub --classic
+	@curl -LO https://github.com/github/hub/releases/download/v2.13.0/hub-linux-amd64-2.13.0.tgz
+	@tar -zxvf hub-linux-amd64-2.13.0.tgz
+	@sudo mv hub-linux-amd64-2.13.0/bin/hub /usr/bin/hub
 	@echo ""
 	@echo "Setting up Git"
 	@read -p "  What is your full name? " name && git config --global user.name "$${name}"
