@@ -25,7 +25,7 @@ k8s:
 	curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-linux-amd64
 	chmod +x kind
 	sudo mv ./kind /usr/local/bin
-	sh create-cluster.sh
+	bash create-cluster.sh
 	chown -R ubuntu:ubuntu ~ubuntu/.kube
 	echo "alias k=kubectl" >> /home/ubuntu/.bashrc
 	
@@ -34,7 +34,7 @@ iptables:
 	
 reset:
 	kind delete cluster
-	kind create cluster --wait 10m --image kindest/node:v1.15.6@sha256:18c4ab6b61c991c249d29df778e651f443ac4bcd4e6bdd37e0c83c0d33eaae78
+	bash create-cluster.sh
 	helm init
 
 helm:
