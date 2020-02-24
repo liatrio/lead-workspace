@@ -53,7 +53,7 @@ skaffold:
 	  sudo install container-structure-test /usr/bin/ && \
 	  rm container-structure-test
 
-	skaffold config set --global default-repo localhost:32000
+	skaffold config set --global default-repo localhost:5000
 
 ssh:
 	@test -f ~/.ssh/id_rsa.pub || ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -q
