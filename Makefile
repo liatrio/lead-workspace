@@ -25,7 +25,7 @@ k8s:
 	curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-linux-amd64
 	chmod +x kind
 	sudo mv ./kind /usr/local/bin
-	kind create cluster --wait 5m --image kindest/node:v1.15.6@sha256:18c4ab6b61c991c249d29df778e651f443ac4bcd4e6bdd37e0c83c0d33eaae78
+	sh create-cluster.sh
 	chown -R ubuntu:ubuntu ~ubuntu/.kube
 	echo "alias k=kubectl" >> /home/ubuntu/.bashrc
 	
@@ -52,6 +52,8 @@ skaffold:
 	@curl -fsLo container-structure-test https://storage.googleapis.com/container-structure-test/v${CST_VERSION}/container-structure-test-linux-amd64 && \
 	  sudo install container-structure-test /usr/bin/ && \
 	  rm container-structure-test
+
+	skaffold config set --global default-repo localhost:32000
 
 ssh:
 	@test -f ~/.ssh/id_rsa.pub || ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -q
