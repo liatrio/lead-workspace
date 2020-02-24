@@ -21,6 +21,7 @@ registryIp="$(docker network inspect bridge --format '{{(index .IPAM.Config 0).G
 cat <<EOF | kind create cluster \
     --name "${clusterName}" \
     --image kindest/node:v1.15.6@sha256:18c4ab6b61c991c249d29df778e651f443ac4bcd4e6bdd37e0c83c0d33eaae78 \
+    --wait 5m \
     --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
