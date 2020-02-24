@@ -36,12 +36,14 @@ reset:
 	kind delete cluster
 	bash create-cluster.sh
 	helm init
+	kubectl apply -f tiller-rbac.yaml
 
 helm:
 	curl -LO https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz
 	tar -zxvf helm-v2.16.1-linux-amd64.tar.gz
 	sudo mv linux-amd64/helm /usr/bin/helm
 	helm init
+	kubectl apply -f tiller-rbac.yaml
 	cp -a helm-starters/* $(HOME)/.helm/starters/
 
 skaffold:
