@@ -5,7 +5,6 @@ K8S_VERSION=1.15/stable
 all: setup k8s install
 
 setup: .resize iptables profile
-k8s: microk8s
 install: helm skaffold gitconfig ssh c9
 
 .resize:
@@ -19,15 +18,14 @@ profile:
 	@-which rvm && rvm implode --force
 	@sudo cp profile.sh /etc/profile.d/lead-workspace.sh
 	
-microk8s:
+k8s:
 	curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl
 	chmod +x kubectl
 	sudo mv ./kubectl /usr/bin/kubectl
-	sudo snap install microk8s --classic --channel=${K8S_VERSION}
-	sudo microk8s.status --wait-ready --timeout 300
-	sudo microk8s.enable registry
-	sudo microk8s.enable dns
-	sudo microk8s.config -l > ~ubuntu/.kube/config
+	curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-linux-amd64
+	chmod +x kind
+	sudo mv ./kind /usr/local/bin
+	kind create cluster --wait 5m --image kindest/node:v1.15.6@sha256:18c4ab6b61c991c249d29df778e651f443ac4bcd4e6bdd37e0c83c0d33eaae78
 	chown -R ubuntu:ubuntu ~ubuntu/.kube
 	echo "alias k=kubectl" >> /home/ubuntu/.bashrc
 	
@@ -35,21 +33,14 @@ iptables:
 	sudo iptables -P FORWARD ACCEPT
 	
 reset:
-	sudo microk8s.disable registry || echo "ok"
-	sudo microk8s.disable dns || echo "ok"
-	sudo microk8s.reset
-	sudo microk8s.stop
-	sudo microk8s.start
-	sudo microk8s.status --wait-ready --timeout 300
-	sudo microk8s.enable registry
-	sudo microk8s.enable dns
+	kind delete cluster
+	kind create cluster --wait 10m --image kindest/node:v1.15.6@sha256:18c4ab6b61c991c249d29df778e651f443ac4bcd4e6bdd37e0c83c0d33eaae78
 	helm init
 
 helm:
 	curl -LO https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz
 	tar -zxvf helm-v2.16.1-linux-amd64.tar.gz
 	sudo mv linux-amd64/helm /usr/bin/helm
-	sudo microk8s.status --wait-ready --timeout 300
 	helm init
 	cp -a helm-starters/* $(HOME)/.helm/starters/
 
