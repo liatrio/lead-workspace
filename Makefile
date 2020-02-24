@@ -28,6 +28,7 @@ k8s:
 	bash create-cluster.sh
 	chown -R ubuntu:ubuntu ~ubuntu/.kube
 	echo "alias k=kubectl" >> /home/ubuntu/.bashrc
+	kubectl apply -f rbac.yaml
 	
 iptables:
 	sudo iptables -P FORWARD ACCEPT
@@ -35,15 +36,14 @@ iptables:
 reset:
 	kind delete cluster
 	bash create-cluster.sh
+	kubectl apply -f rbac.yaml
 	helm init
-	kubectl apply -f tiller-rbac.yaml
 
 helm:
 	curl -LO https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz
 	tar -zxvf helm-v2.16.1-linux-amd64.tar.gz
 	sudo mv linux-amd64/helm /usr/bin/helm
 	helm init
-	kubectl apply -f tiller-rbac.yaml
 	cp -a helm-starters/* $(HOME)/.helm/starters/
 
 skaffold:
