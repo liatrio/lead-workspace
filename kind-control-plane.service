@@ -1,0 +1,12 @@
+[Unit]
+Description=Kind Control Plane
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a kind-control-plane
+ExecStop=/usr/bin/docker stop kind-control-plane
+
+[Install]
+WantedBy=default.target

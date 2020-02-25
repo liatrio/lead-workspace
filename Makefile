@@ -28,15 +28,14 @@ k8s:
 	bash create-cluster.sh
 	chown -R ubuntu:ubuntu ~ubuntu/.kube
 	echo "alias k=kubectl" >> /home/ubuntu/.bashrc
-	kubectl apply -f rbac.yaml
 	
 iptables:
 	sudo iptables -P FORWARD ACCEPT
 	
 reset:
+	sudo systemctl stop kind-control-plane
 	kind delete cluster
 	bash create-cluster.sh
-	kubectl apply -f rbac.yaml
 	helm init
 
 helm:

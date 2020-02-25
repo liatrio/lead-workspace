@@ -30,3 +30,9 @@ containerdConfigPatches:
   [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:5000"]
     endpoint = ["http://${registryIp}:5000"]
 EOF
+
+docker stop kind-control-plane
+cp kind-control-plane.service /etc/systemd/service
+sudo systemctl start kind-control-plane
+kind export kubeconfig
+kubectl apply -f rbac.yaml
