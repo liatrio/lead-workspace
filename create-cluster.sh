@@ -32,5 +32,5 @@ containerdConfigPatches:
 EOF
 
 docker stop kind-control-plane
-cp kind-control-plane.service /etc/systemd/system
+sudo cp kind-control-plane.service /etc/systemd/system
 sudo systemctl start kind-control-plane
