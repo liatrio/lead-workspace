@@ -33,3 +33,4 @@ EOF
 docker stop kind-control-plane
 cp -n kind-control-plane.service /etc/systemd/system
 sudo systemctl enable kind-control-plane
+sudo systemctl start kind-control-plane
