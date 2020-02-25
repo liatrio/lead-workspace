@@ -29,6 +29,7 @@ k8s:
 	chown -R ubuntu:ubuntu ~ubuntu/.kube
 	kind export kubeconfig
 	echo "alias k=kubectl" >> /home/ubuntu/.bashrc
+	bash wait-for-cluster.sh
 	kubectl apply -f rbac.yaml
 	
 iptables:
@@ -39,6 +40,7 @@ reset:
 	kind delete cluster
 	bash create-cluster.sh
 	kind export kubeconfig
+	bash wait-for-cluster.sh
 	kubectl apply -f rbac.yaml
 	helm init
 
