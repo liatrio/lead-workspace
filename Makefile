@@ -29,6 +29,7 @@ k8s:
 	chown -R ubuntu:ubuntu ~ubuntu/.kube
 	kind export kubeconfig
 	echo "alias k=kubectl" >> /home/ubuntu/.bashrc
+	echo "kind export kubeconfig 1> /dev/null" >> /home/ubuntu/.bashrc
 	bash wait-for-cluster.sh
 	kubectl apply -f rbac.yaml
 	
