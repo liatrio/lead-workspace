@@ -27,9 +27,8 @@ k8s:
 	sudo mv ./kind /usr/local/bin
 	bash create-cluster.sh
 	chown -R ubuntu:ubuntu ~ubuntu/.kube
-	kind export kubeconfig
+	echo "kind export kubeconfig" >> /home/ubuntu/.bashrc
 	echo "alias k=kubectl" >> /home/ubuntu/.bashrc
-	echo "kind export kubeconfig 1> /dev/null" >> /home/ubuntu/.bashrc
 	bash wait-for-cluster.sh
 	kubectl apply -f rbac.yaml
 	
