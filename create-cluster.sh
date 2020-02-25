@@ -32,7 +32,7 @@ containerdConfigPatches:
 EOF
 
 docker stop kind-control-plane
-cp kind-control-plane.service /etc/systemd/service
+cp kind-control-plane.service /etc/systemd/system
 sudo systemctl start kind-control-plane
 kind export kubeconfig
 kubectl apply -f rbac.yaml
