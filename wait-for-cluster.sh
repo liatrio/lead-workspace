@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
-kubectl rollout status -n kube-system deploy/coredns
-kubectl rollout status -n kube-system daemonset/kindnet
-kubectl rollout status -n kube-system daemonset/kube-proxy
+while : ; do
+    status=$(kubectl get pod -n kube-system kube-apiserver-kind-control-plane -o jsonpath="{.status.phase}")
+    if [[ "${status}" == "Running" ]]; then
+        break
+    fi
+    sleep 1
+done
