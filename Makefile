@@ -42,14 +42,12 @@ reset:
 	kind export kubeconfig
 	bash wait-for-cluster.sh
 	kubectl apply -f rbac.yaml
-	helm init
 
 helm:
-	curl -LO https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz
-	tar -zxvf helm-v2.16.1-linux-amd64.tar.gz
+	curl -LO https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz
+	tar -zxvf helm-v3.1.2-linux-amd64.tar.gz
 	sudo mv linux-amd64/helm /usr/bin/helm
-	helm init
-	cp -a helm-starters/* $(HOME)/.helm/starters/
+	sudo mkdir -p ${HOME}/.local/share/helm && sudo cp -a helm-starters/* ${HOME}/.local/share/helm/starters/
 
 skaffold:
 	@curl -fsLo skaffold https://github.com/GoogleCloudPlatform/skaffold/releases/download/v${SKAFFOLD_VERSION}/skaffold-linux-amd64 && \
