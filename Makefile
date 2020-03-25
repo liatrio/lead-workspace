@@ -1,4 +1,4 @@
-SKAFFOLD_VERSION=0.33.0
+SKAFFOLD_VERSION=1.6.0
 CST_VERSION=1.8.0
 K8S_VERSION=1.15/stable
 
@@ -47,7 +47,7 @@ helm:
 	curl -LO https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz
 	tar -zxvf helm-v3.1.2-linux-amd64.tar.gz
 	sudo mv linux-amd64/helm /usr/bin/helm
-	sudo mkdir -p ${HOME}/.local/share/helm && sudo cp -a helm-starters/* ${HOME}/.local/share/helm/starters/
+	sudo mkdir -p ${HOME}/.local/share/helm && sudo cp -r helm-starters $(HOME)/.local/share/helm/starters
 
 skaffold:
 	@curl -fsLo skaffold https://github.com/GoogleCloudPlatform/skaffold/releases/download/v${SKAFFOLD_VERSION}/skaffold-linux-amd64 && \
