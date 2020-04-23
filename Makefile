@@ -6,6 +6,7 @@ all: setup k8s install
 
 setup: .resize iptables profile
 install: helm skaffold gitconfig ssh c9
+install-aws: helm skaffold gitconfig c9
 
 .resize:
 	sh resize-volume.sh
@@ -78,5 +79,9 @@ gitconfig:
 	@read -p "  What is your full name? " name && git config --global user.name "$${name}"
 	@read -p "  What is your email address? " email && git config --global user.email "$${email}"
 	@echo ""
+
+codecommit:
+    @git config --global credential.helper '!aws codecommit credential-helper $@'
+	@git config --global credential.UseHttpPath true
 
 .PHONY: setup
