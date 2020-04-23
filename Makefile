@@ -6,7 +6,7 @@ all: setup k8s install
 
 setup: .resize iptables profile
 install: helm skaffold gitconfig ssh c9
-install-aws: helm skaffold gitconfig c9
+install-aws: helm skaffold gitconfig codecommit c9
 
 .resize:
 	sh resize-volume.sh
