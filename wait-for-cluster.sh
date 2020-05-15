@@ -5,5 +5,6 @@ while : ; do
     if [[ "${status}" == "Running" ]]; then
         break
     fi
-    sleep 1
+    sleep 15
+    echo "Waiting for cluster to finish setting up..."
 done
