@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-kind export kubeconfig
+while : ; do
+    kind export kubeconfig &>/dev/null
+    if [[ ${?} -eq 0 ]]; then
+        break
+    fi
+    sleep 1
+done
 
 printf "Waiting for CNI to be ready"
 while : ; do
