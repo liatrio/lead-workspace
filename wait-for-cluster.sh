@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+while : ; do
+    kind export kubeconfig &>/dev/null
+    if [[ ${?} -eq 0 ]]; then
+        break
+    fi
+    sleep 1
+done
+
 printf "Waiting for CNI to be ready"
 while : ; do
     cniReady=$(kubectl get daemonset -n kube-system kindnet -o jsonpath="{.status.numberReady}" 2>/dev/null)
