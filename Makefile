@@ -4,7 +4,7 @@ K8S_VERSION=1.15/stable
 
 all: setup k8s install
 
-setup: .resize iptables profile
+setup: .resize iptables profile ~/.vimrc
 install: helm skaffold gitconfig ssh c9
 install-aws: helm skaffold gitconfig codecommit c9
 
@@ -18,7 +18,10 @@ c9:
 profile:
 	@-which rvm && rvm implode --force
 	@sudo cp profile.sh /etc/profile.d/lead-workspace.sh
-	
+
+~/.vimrc:
+	@cp vimrc ~/.vimrc
+
 k8s:
 	curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl
 	chmod +x kubectl
