@@ -14,6 +14,8 @@ install-aws: helm skaffold gitconfig codecommit c9
 
 c9:
 	@cp c9-project.settings ~/environment/.c9/project.settings
+	@mkdir -p ~/environment/.c9/metadata/environment/.c9
+	@cp c9metadata-project.settings ~/environment/.c9/metadata/environment/.c9/project.settings
 	
 profile:
 	@-which rvm && rvm implode --force
