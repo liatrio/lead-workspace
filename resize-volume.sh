@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Specify the desired volume size in GiB 
-SIZE=${1:-20}
+SIZE=${1:-30}
 
 # Get the ID of the envrionment host Amazon EC2 instance.
 INSTANCEID=$(curl -s http://169.254.169.254/latest/meta-data//instance-id)
