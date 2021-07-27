@@ -25,7 +25,7 @@ profile:
 	@cp vimrc ~/.vimrc
 
 k8s:
-	curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.16.5/bin/linux/amd64/kubectl
+	curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl
 	chmod +x kubectl
 	sudo mv ./kubectl /usr/bin/kubectl
 	curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.11.1/kind-linux-amd64
@@ -50,7 +50,7 @@ reset:
 	kubectl apply -f rbac.yaml
 
 helm:
-	curl -LO https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz
+	curl -LO https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz
 	tar -zxvf helm-v3.1.2-linux-amd64.tar.gz
 	sudo mv linux-amd64/helm /usr/bin/helm
 	sudo mkdir -p ${HOME}/.local/share/helm && sudo cp -r helm-starters $(HOME)/.local/share/helm/starters
