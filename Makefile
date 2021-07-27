@@ -28,7 +28,7 @@ k8s:
 	curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.16.5/bin/linux/amd64/kubectl
 	chmod +x kubectl
 	sudo mv ./kubectl /usr/bin/kubectl
-	curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.10.0/kind-linux-amd64
+	curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.11.1/kind-linux-amd64
 	chmod +x kind
 	sudo mv ./kind /usr/local/bin
 	bash create-cluster.sh
