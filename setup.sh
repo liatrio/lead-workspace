@@ -7,3 +7,4 @@ make setup -C $DIR
 sudo make k8s -C $DIR
 make install -C $DIR
 exec bash -l
+
